@@ -1,1 +1,23 @@
 # workspace-develop
+# Proyecto UNSA EDOMEX para la Administración de servicios
+
+# HERRAMIENTAS
+#
+# XAMPP
+# PHP 7.3.1
+# MARIADB
+# APACHE
+
+# FRAMEWORK
+# JQUERY
+# ANGULAR JS
+# UI.BOOTSTRAP
+# NG-ANIMATION
+
+# DESIGN
+# CSS
+# BOOTSTRAP 4
+
+# API 
+# PHP
+# FORMATO JSON PARA ITERACIÓN DE DATOS
