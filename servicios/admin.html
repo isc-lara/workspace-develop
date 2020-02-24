@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <title>Servicios Administrativos</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1">
+
+    <link rel="stylesheet" href="/servicios/styles/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/servicios/styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/servicios/js/lib/angular-block-ui/dist/angular-block-ui.css">
+    <link rel="stylesheet" href="/servicios/styles/angular-toastr.min.css">
+    <link rel="stylesheet" href="/servicios/styles/styles-index.css">
+
+</head>
+
+<body ng-app="app-corpo" ng-controller="administracion-servicios-corpo" ng-init="variablesDeInicio()" ng-cloak>
+
+    <div class="fondo-gris">
+        <header id="banner" role="banner" class="container-fluid">
+            <div class="row text-center">
+                <div class="text-left col-xl-7 col-lg-7 col-md-3 col-sm-3 col-xs-5 col-5">
+                    <img src="img/seguros.png" class="logoAdministrativo">
+                </div>
+                <div class="col-xl-4 col-lg-4 col-md-7 col-sm-7 col-xs-5 col-5 fondo-verde">
+                    <div>
+                        <h2><i class="fa fa-user-circle" aria-hidden="true"></i>&nbsp;{{nombreHeader}}</h2>
+                    </div>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-2 col-sm-2 col-xs-2 col-2" ng-click="logout()">
+                    <div style="padding-top: 15px;font-size:25px">
+                        <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    </div>
+                </div>
+            </div>
+        </header>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 col-12 ">
+                <h2>
+                    <!-- INICIA BARRA DE NAVEGACION nav nav-tabs flex-column -->
+                    <ul class="nav nav-tabs  nav-pills nav-fill nav-justified text-left " role="tablist">
+                        <li class="nav-item" title="Alumnos">
+                            <a class="nav-link active" href="#alumnos" role="tab" data-toggle="tab"><i class="fa fa-address-book-o" aria-hidden="true"></i>&nbsp;Alumnos</a>
+                        </li>
+                        <li class="nav-item" title="Servicios">
+                            <a class="nav-link" href="#servicios" role="tab" data-toggle="tab"><i class="fa fa-gears" aria-hidden="true"></i>&nbsp;Servicios</a>
+                        </li>
+                        <li class="nav-item" title="Usuarios">
+                            <a class="nav-link" href="#usuarios" role="tab" data-toggle="tab"><i class="fa fa-users" aria-hidden="true"></i>&nbsp;Usuarios</a>
+                        </li>
+
+                        <!--<li class="nav-item" title="Administración">
+							<a class="nav-link" href="#admin" role="tab" data-toggle="tab"><i class="fa fa-flag" aria-hidden="true"></i>&nbsp;Administración</a>
+						</li>
+						<li class="nav-item" title="Reportes">
+							<a class="nav-link" href="#reporte" role="tab" data-toggle="tab"><i class="fa fa-download" aria-hidden="true"></i>&nbsp;Reportes</a>
+						</li>-->
+                    </ul>
+                </h2>
+                <br>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="alumnos">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2><i class="tamanoicono fa fa-search"></i>&nbsp;B&uacute;squeda</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form autocomplete="off" id="recuperaAlumno">
+                                            <label class="small text-muted">Clave</label>
+                                            <input type="text" class="form-control form-control-sm campo" id="alumClave" ng-model="alumClave" required>
+
+                                            <label class="small text-muted">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" ng-model="alumNombre" id="alumNombre">
+
+                                            <label class="small text-muted">Carrera</label>
+                                            <select class="form-control form-control-sm" ng-model="alumCarrera" id="alumCarrera">
+                                                <option  value="" selected>Seleccione</option>
+                                                <option ng-repeat="lic in licenciatura" value="{{lic.nombre}}">{{lic.nombre}}</option>
+                                            </select>
+
+                                            <label class="small text-muted">Estatus</label>
+                                            <select class="form-control form-control-sm campo" ng-model="alumEstatus" id="alumEstatus" required>
+                                                <option  value="" selected>Seleccione</option>
+                                                <option value="1" selected>Activado</option>
+                                                <option value="0">Desactivado</option>
+                                            </select>
+                                            <br>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-sm btn-azul btn-outline btns" data-toggle="modal" data-target="#crearAlumno" ng-click="recuperaCarrera()">
+                                            <i class="fa fa-user-plus tamanoicono"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-azul btn-outline pull-right btns" type="button" ng-click="recuperaAlumnos()">
+                                            <i class="fa fa-search tamanoicono"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-rojo btn-outline btns pull-right" type="button" id="btnClearSecond">
+                                            <i class="fa fa-eraser tamanoicono"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+                                <div class="table-responsive" slim-scroll height="400px">
+
+                                    <table class="table table-striped table-sm">
+                                        <thead class="">
+                                            <tr>
+                                                <th scope="col">Clave</th>
+                                                <th scope="col">Carrera</th>
+                                                <th scope="col">Nombre</th>
+                                                <th scope="col">Asignacion</th>
+                                                <th scope="col">Estatus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left small" id="sinRegistro">
+                                            <tr ng-repeat="al in alumnos">
+                                                <td>{{al.clave}}</td>
+                                                <td>{{al.carrera}}</td>
+                                                <td>{{al.nombre}}</td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button type="button" class="btn btn-sm btn-azul btn-outline" data-toggle="modal" data-target="#crearMerge" ng-click="recuperaServicios(al)">
+                                                            <i class="fa fa-plus-square-o tamanoicono"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-azul btn-outline" data-toggle="modal" data-target="#eliminarMerge" ng-click="recuperaServiciosAlumnos(al)">
+                                                            <i class="fa fa-minus-square-o tamanoicono"></i>
+                                                        </button>
+                                                        <button type="button" class="btn btn-sm btn-azul btn-outline" data-toggle="modal" ng-click="descargapdf(al)">
+                                                            <i class="fa fa-cloud-download tamanoicono"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <button ng-if="al.estatus =='1'" class="btn btn-sm btn-verde btn-outline" ng-click="resetEstatusAlumnos(al,'0')" title="Click para cambiar de estado">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                    <button ng-if="al.estatus =='0'" ng-click="resetEstatusAlumnos(al,'1')" class="btn btn-sm btn-rojo btn-outline" title="Click para cambiar de estado">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="crearAlumno">
+                                <div class="modal-dialog ">
+                                    <div class="modal-content">
+
+                                        <div class="modal-header fondo-azul">
+                                            <div class=" text-center">
+                                                Creación de alumnos
+                                            </div>
+                                            <button type="button" class="close btn-sm" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <form name="form">                                             
+   
+                                        <div class="modal-body">
+                                              
+                                            <div class="text-center">
+                                                <img src="img/add-user.png">                                               
+                                            </div>
+                                            <br>
+                                            
+                                            <span ng-hide="{{form.$valid}}" class="">* Llene todos los campos</span>
+                                            <hr>
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="calumno" id="calumno" name="calumno" class="form-control form-control-sm" placeholder="Nombre Alumno" ng-pattern="/^[a-zA-Z]+$/" required>
+                                            </div>
+
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-vcard-o"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="capellidop" id="capellidop" name="capellidop" class="form-control form-control-sm" placeholder="Apellido Paterno" ng-pattern="/^[a-zA-Z]+$/" required>
+                                            </div>
+
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-vcard-o"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="capellidom" id="capellidom" name="capellidom" class="form-control form-control-sm" placeholder="Apellido Materno" ng-pattern="/^[a-zA-Z]+$/" required>
+                                            </div>
+
+                                            <div class="input-group mb-2">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-university"></i></span>
+                                                </div>
+                                                <select class="form-control form-control-sm campo" id="carrera" ng-model="carrera" required>
+                                                    <option  value="" selected>Seleccione</option>
+                                                <option ng-repeat="lic in licenciatura" value="{{lic.nombre}}">{{lic.nombre}}</option>
+                                                </select>
+                                            </div>
+
+                                            <label class="small text-muted">Estatus</label>
+                                            <select class="form-control form-control-sm campo" ng-model="cestatus" required>
+                                                <option  value="" selected>Seleccione</option>
+                                                <option value="1">Activado</option>
+                                                <option value="0">Desactivado</option>
+                                            </select>
+                                          
+                                        </div>
+                                        <div class="modal-footer">
+                                      
+                                            
+                                            <button ng-click="createAlumno()" ng-disabled="form.$invalid" class="btn btn-verde btn-outline btn-sm pull-right">
+                                                <i class="fa fa-save"></i> Guardar
+                                            </button>
+                                        </div>
+                                              </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="crearMerge">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header fondo-azul">
+                                            <div class=" text-center">
+                                                Servicios Administrativos
+                                            </div>
+                                            <button type="button" class="close btn-sm" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="text-center">
+                                                <img src="img/add-user.png" width="110px">
+                                            </div>
+                                            <br>
+                                            <p class="text-muted small">B&aacute;sca el servicio</p>
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-search"></i></span>
+                                                </div>
+
+
+                                                <input type="text" name="servicio" ng-model="client.servicio" typeahead-on-select="selectTypeAhead($item)" uib-typeahead="client.servicio for client in clients | filter:{servicio:$viewValue}" typeahead-loading="loading" typeahead-no-results="noResults" class="form-control form-control-sm" autocomplete="off">
+                                            </div>
+
+                                            <div ng-show="noResults" class="text-muted small text-right">
+                                                <i ng-show="loading" class="fa fa-refresh"></i>
+                                            </div>
+
+                                            <div ng-show="noResults" class="text-muted small text-right">
+                                                <i class="fa fa-remove"></i> Sin Resultados
+                                            </div>
+
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="client.idServicio" class="form-control form-control-sm" readonly>
+                                            </div>
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-cube"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="client.servicio" class="form-control form-control-sm" readonly>
+                                            </div>
+                                            <div class="input-group mb-1">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="client.costo" class="form-control form-control-sm" readonly>
+                                            </div>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button ng-click="createServiceAlumno()" ng-disabled="formulario.$invalid" class="btn btn-verde btn-outline btn-sm pull-right">
+                                                <i class="fa fa-save"></i> Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="eliminarMerge">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header fondo-azul">
+                                            <div class=" text-center">
+                                                Servicios Administrativos
+                                            </div>
+                                            <button type="button" class="close btn-sm" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <table class="table table-striped table-sm">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th scope="col">NOMBRE</th>
+                                                        <th scope="col"><i class="fa fa-dollar"></i></th>
+                                                        <th scope="col" class="text-center">ELIMINA</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="text-left small" id="sinRegistro">
+                                                    <tr ng-repeat="alumServ in servicesAlumnos">
+                                                        <td>{{alumServ.nombre}}</td>
+                                                        <td>{{alumServ.costo}}</td>
+                                                        <td class="text-center"> <button type="button" class="btn btn-sm btn-rojo btn-outline" ng-click="eliminaSerAlumno(alumServ)">
+                                                                <i class="fa fa-times tamanoicono"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="usuarios">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2><i class="tamanoicono fa fa-search"></i>&nbsp;B&uacute;squeda</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form autocomplete="off" id="recuperaUsuario">
+                                            <label class="small text-muted">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm campo" ng-model="nombreUsers" id="nombreUsers" required>
+                                            <br>
+                                            <div class="text-muted text-center small">* Intervalos por fecha inicio de vigencia</div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <p class="input-group">
+                                                    <input id="txtFechaInicioResp" name="txtFechaInicioResp" type="text" class="form-control form-control-sm" uib-datepicker-popup="yyyy-MM-dd" ng-model="fechaInicio" is-open="fhInicio.abierto" datepicker-options="" clear-text="Limpiar" close-text="Cerrar" current-text="Actual" ng-click="abrirInicio()" ng-change="limpiarFecha()" ng-blur="validar('txtFechaInicioResp', 'formBusquedaResp')" data-smk-type="fhInicioBusquedaResp" placeholder="* Fecha inicio" />
+                                                    <span class="input-group-btn">
+                                                        <button type="button" id="btnFechaInicioResp" name="btnFechaInicioResp" class="btn btn-azul btn-sm" ng-click="abrirInicio()"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </p>
+                                            </div>
+                                            <div class="form-group">
+                                                <p class="input-group">
+                                                    <input type="text" id="txtFechaFinResp" name="txtFechaFinResp" class="form-control form-control-sm" uib-datepicker-popup="yyyy-MM-dd" ng-blur="validar('txtFechaFinResp', 'formBusquedaResp')" ng-model="fechaFin" value="fechaInicio" clear-text="Limpiar" close-text="Cerrar" current-text="Actual" is-open="fhFin.abierto" datepicker-options="dateOptions" ng-click="abrirFin()" data-smk-type="fhFinBusquedaResp" placeholder="* Fecha fin" ng-disabled="fechaInicio==''">
+                                                    <span class="input-group-btn">
+                                                        <button type="button" id="btnFechaFinResp" name="btnFechaFinResp" class="btn btn-azul btn-sm" ng-click="abrirFin()"><i class="fa fa-calendar"></i></button>
+                                                    </span>
+                                                </p>
+                                            </div>
+
+                                            <label class="small text-muted">Estatus</label>
+                                            <select class="form-control form-control-sm campo" ng-model="estatusUser" id="estatusUser" required>
+                                                <option value="1" selected>Activado</option>
+                                                <option value="0">Desactivado</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-sm btn-azul btn-outline btns" data-toggle="modal" data-target="#createUser">
+                                            <i class="fa fa-user-plus tamanoicono"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-azul btn-outline pull-right btns" type="button" ng-click="recuperaUsuarios()">
+                                            <i class="fa fa-search tamanoicono"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-rojo btn-outline btns pull-right" type="button" id="btnClearSecond">
+                                            <i class="fa fa-eraser tamanoicono"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+
+                                <div class="table-responsive" slim-scroll height="400px">
+                                    <table class="table table-striped table-sm">
+                                        <thead class="">
+                                            <tr>
+                                                <th scope="col">Usuario</th>
+                                                <th scope="col">Fecha Creación</th>
+                                                <th scope="col">Fecha Modificación</th>
+                                                <th scope="col">Contraseña</th>
+                                                <th scope="col">Estatus</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="text-left" id="sinRegistro">
+                                            <tr ng-repeat="users in usuarios" class="small">
+                                                <td>{{users.nombreUsuario}}</td>
+                                                <td>{{users.fechaCreacion}}</td>
+                                                <td>{{users.fechaModificacion}}</td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <input type="password" class="form-control form-control-sm" ng-model="pwdreset">
+                                                        <div class="input-group-prepend">
+                                                            <button class="input-group-text" ng-click="resetpwd(users,pwdreset)"><i class="fa fa-refresh"></i></button>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td class="text-center">
+                                                    <button ng-if="users.estatus =='1'" class="btn btn-sm btn-verde btn-outline" ng-click="resetEstatus(users,'0')" title="Click para cambiar de estado">
+                                                        <i class="fa fa-check"></i>
+                                                    </button>
+                                                    <button ng-if="users.estatus =='0'" ng-click="resetEstatus(users,'1')" class="btn btn-sm btn-rojo btn-outline" title="Click para cambiar de estado">
+                                                        <i class="fa fa-times"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="modal fade" id="createUser">
+                                <div class="modal-dialog ">
+                                    <div class="modal-content">
+
+                                        <!-- Modal Header -->
+                                        <div class="modal-header fondo-azul">
+                                            <div class=" text-center">
+                                                Creación de usuarios
+                                            </div>
+                                            <button type="button" class="close btn-sm" data-dismiss="modal">&times;</button>
+                                        </div>
+
+                                        <!-- Modal body -->
+                                        <div class="modal-body">
+
+                                            <div class="text-center">
+                                                <img src="img/add-user.png">
+                                            </div>
+                                            <br>
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-user-circle"></i></span>
+                                                </div>
+                                                <input type="text" ng-model="username" id="nombre" class="form-control form-control-sm" placeholder="[Minimo 4 caracteres]">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                                </div>
+                                                <input type="password" ng-model="password" id="password" class="form-control form-control-sm" placeholder="[Mínimo 8 caracteres]">
+                                            </div>
+
+                                            <div class="input-group mb-3">
+                                                <div class="input-group-prepend">
+                                                    <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                                                </div>
+                                                <input type="password" placeholder="[Minimo 8 caracteres]" ng-model="confpassword" id="contrasena" class="form-control form-control-sm">
+                                            </div>
+                                        </div>
+                                        <!-- Modal footer -->
+                                        <div class="modal-footer">
+                                            <button ng-click="createUser()" ng-disabled="formulario.$invalid" class="btn btn-verde btn-outline btn-sm pull-right">
+                                                <i class="fa fa-save"></i> Guardar
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="servicios">
+                        <div class="">
+                            <div class="row">
+                                <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h2><i class="tamanoicono fa fa-search"></i>&nbsp;B&uacute;squeda</h2>
+                                        </div>
+                                        <div class="card-body">
+                                            <form autocomplete="off" id="recuperaServicio">
+                                            
+                                                <label class="small text-muted">Clave</label>
+                                                <input type="text" class="form-control form-control-sm campo" ng-model="servClave" id="servClave" required>
+
+                                                <label class="small text-muted">Nombre</label>
+                                                <input type="text" class="form-control form-control-sm" ng-model="servNombre" id="servNombre">
+
+                                                <label class="small text-muted">Costo</label>
+                                                <input type="text" class="form-control form-control-sm" ng-model="servCosto" id="servCosto">
+
+                                                <label class="small text-muted">Estatus</label>
+                                                <select class="form-control form-control-sm campo" ng-model="servEstatus" id="servEstatus" required>
+                                                    <option value="1" selected>Activado</option>
+                                                    <option value="0">Desactivado</option>
+                                                </select>
+                                            </form>
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="button" class="btn btn-sm btn-azul btn-outline btns" data-toggle="modal" data-target="#createService">
+                                                <i class="fa fa-plus-square tamanoicono"></i>
+                                            </button>
+
+
+                                            <button class="btn btn-sm btn-azul btn-outline pull-right btns" type="button" ng-click="recuperaServicios()">
+                                                <i class="fa fa-search tamanoicono"></i>
+                                            </button>
+
+                                            <button class="btn btn-sm btn-rojo btn-outline btns pull-right" type="button" id="btnClearSecond">
+                                                <i class="fa fa-eraser tamanoicono"></i>
+                                            </button>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+
+                                    <div class="table-responsive" slim-scroll height="400px">
+                                        <table class="table table-striped table-sm">
+                                            <thead class="">
+                                                <tr>
+                                                    <th scope="col">Clave</th>
+                                                    <th scope="col">Nombre</th>
+                                                    <th scope="col">Costo</th>
+                                                    <th scope="col">Estatus</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody class="text-left" id="sinRegistro">
+                                                <tr ng-repeat="serv in servicios">
+                                                    <td>{{serv.clave}}</td>
+                                                    <td>{{serv.servicio}}</td>
+                                                    <td><i class="fa fa-usd"></i> {{serv.costo}}</td>
+                                                    <td>
+                                                        <button ng-if="serv.estatus =='1'" class="btn btn-sm btn-verde btn-outline" ng-click="resetEstatusServicio(serv,'0')" title="Click para cambiar de estado">
+                                                            <i class="fa fa-check"></i>
+                                                        </button>
+                                                        <button ng-if="serv.estatus =='0'" ng-click="resetEstatusServicio(serv,'1')" class="btn btn-sm btn-rojo btn-outline" title="Click para cambiar de estado">
+                                                            <i class="fa fa-times"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="modal fade" id="createService">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <!-- Modal Header -->
+                                            <div class="modal-header fondo-azul">
+                                                <div class=" text-center">
+                                                    Creación de servicios
+                                                </div>
+                                                <button type="button" class="close btn-sm" data-dismiss="modal">&times;</button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <div class="modal-body">
+
+                                                <div class="text-center">
+                                                    <img src="img/package.png" width="128px">
+                                                </div>
+                                                <br>
+                                                <div class="input-group mb-1">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-bookmark-o"></i></span>
+                                                    </div>
+                                                    <input type="text" ng-model="nombreServ" id="nombreServ" class="form-control form-control-sm" placeholder="Nombre del Servicio">
+                                                </div>
+
+                                                <div class="input-group mb-1">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-list-alt"></i></span>
+                                                    </div>
+                                                    <textarea class="md-textarea form-control" ng-model="descripcionServ" rows="3" id="descripcion" placeholder="Descripción General"></textarea>
+
+                                                </div>
+                                                <div class="input-group mb-1">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"><i class="fa fa-dollar"></i></span>
+                                                    </div>
+                                                    <input type="number" ng-model="costoServ" id="costoServ" class="form-control form-control-sm" placeholder="Costo" pattern="[0-9]+" equired autocomplete="off">
+                                                </div>
+
+                                                <label class="small text-muted">Estatus</label>
+                                                <select class="form-control form-control-sm campo" ng-model="estatusServ" id="estatusServ" required>
+                                                    <option value="" selected>Seleccione</option>
+                                                    <option value="1" >Activado</option>
+                                                    <option value="0">Desactivado</option>
+                                                </select>
+
+                                            </div>
+                                            <!-- Modal footer -->
+                                            <div class="modal-footer">
+                                                <button ng-click="createService()" ng-disabled="formulario.$invalid" class="btn btn-verde btn-outline btn-sm pull-right">
+                                                    <i class="fa fa-save"></i> Guardar
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--<div role="tabpanel" class="tab-pane" id="admin">
+                        <div class="row">
+                            <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12 col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h2><i class="tamanoicono fa fa-search"></i>&nbsp;B&uacute;squeda</h2>
+                                    </div>
+                                    <div class="card-body">
+                                        <form autocomplete="off" id="recupera">
+                                            <label class="small text-muted">Clave</label>
+                                            <input type="text" class="form-control form-control-sm campo" id="busClave" required>
+
+                                            <label class="small text-muted">Nombre</label>
+                                            <input type="text" class="form-control form-control-sm" id="busNombre">
+
+                                            <label class="small text-muted">Carrera</label>
+                                            <select class="form-control form-control-sm" id="busCarrera">
+                                                <option value="Ingenieria" selected>Seleccione</option>
+                                            </select>
+
+                                            <label class="small text-muted">Estatus</label>
+                                            <select class="form-control form-control-sm campo" id="busEstatus" required>
+                                                <option value="TRUE" selected>Activado</option>
+                                                <option value="FALSE">Desactivado</option>
+                                            </select>
+                                        </form>
+                                    </div>
+                                    <div class="card-footer">
+                                        <button type="button" class="btn btn-sm btn-azul btn-outline btns" data-toggle="modal" data-target="#createUser">
+                                            <i class="fa fa-user-plus tamanoicono"></i>
+                                        </button>
+
+
+                                        <button class="btn btn-sm btn-azul btn-outline pull-right btns" type="button" ng-click="recuperaServicios()">
+                                            <i class="fa fa-search tamanoicono"></i>
+                                        </button>
+
+                                        <button class="btn btn-sm btn-rojo btn-outline btns pull-right" type="button" id="btnClearSecond">
+                                            <i class="fa fa-eraser tamanoicono"></i>
+                                        </button>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-9 col-lg-9 col-md-9 col-sm-12 col-12">
+
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <!--<div role="tabpanel" class="tab-pane" id="reporte">
+						<div class="row">
+							<div class="col-xl-4 offset-xl-4 col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-12 col-xs-12">
+
+								<div class=" text-left">
+									<div class="text-center"><img src="img/descarga.png"></div>
+
+									<label class="small text-muted">Alumno</label>
+									<input type="text"  class="form-control form-control-sm campo" ng-model="alumnodr">
+								
+									<label class="small text-muted">Carrera</label>
+									<select class="form-control form-control-sm campo" ng-model="carreradr" required>
+										<option value="TRUE" selected>Activado</option>
+										<option value="FALSE">Desactivado</option>
+									</select>
+									<br>
+									<div class="form-group">
+										<p class="input-group">
+											<input id="txtFechaInicioResp" name="txtFechaInicioResp" type="text" class="form-control form-control-sm" uib-datepicker-popup="yyyy/MM/dd" ng-model="fechaInicio" is-open="fhInicio.abierto" datepicker-options="" clear-text="Limpiar" close-text="Cerrar" current-text="Actual" ng-click="abrirInicio()" ng-change="limpiarFecha()" ng-blur="validar('txtFechaInicioResp', 'formBusquedaResp')" data-smk-type="fhInicioBusquedaResp" placeholder="* Fecha inicio" ng-disabled="numeroPoliza!=''" />
+											<span class="input-group-btn">
+												<button type="button" id="btnFechaInicioResp" name="btnFechaInicioResp" class="btn btn-azul btn-outline btn-sm" ng-click="abrirInicio()"><i class="fa fa-calendar"></i></button>
+											</span>
+										</p>
+									</div>
+									<div class="form-group">
+										<p class="input-group">
+											<input type="text" id="txtFechaFinResp" name="txtFechaFinResp" class="form-control form-control-sm" uib-datepicker-popup="yyyy/MM/dd" ng-blur="validar('txtFechaFinResp', 'formBusquedaResp')" ng-model="fechaFin" value="fechaInicio" clear-text="Limpiar" close-text="Cerrar" current-text="Actual" is-open="fhFin.abierto" datepicker-options="dateOptions" ng-click="abrirFin()" data-smk-type="fhFinBusquedaResp" placeholder="* Fecha fin" ng-disabled="numeroPoliza!=''|| fechaInicio==''">
+											<span class="input-group-btn">
+												<button type="button" id="btnFechaFinResp" name="btnFechaFinResp" class="btn btn-azul btn-outline btn-sm" ng-click="abrirFin()"><i class="fa fa-calendar"></i></button>
+											</span>
+										</p>
+									</div>
+
+									<button ng-click="login()" class="btn form-control btn-outline btn-azul">
+										<i class="fa fa-file-pdf-o fa-1x"></i></button>
+								</div>
+							</div>
+						</div>
+					</div>-->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+			<footer id="footer" class="col-lg-12 col-md-12 col-sm-12 text-muted text-center">
+				<h4 class="small">
+					Copyright © 2020 Universidad de la Salud del Estado de México. Todos los Derechos Reservados.
+				</h4>
+			</footer>
+		</div>
+    </div>
+    
+    <script src="/servicios/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/servicios/js/lib/bootstrap.min.js"></script>
+    <script src="/servicios/js/lib/angular.js"></script>
+
+    <script src="/servicios/js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="/servicios/js/lib/angular-slimscroll-aiska.min.js"></script>
+    <script src="/servicios/js/lib/angular-animate.js"></script>
+    <script src="/servicios/js/lib/angular-sanitize.js"></script>
+    <script src="/servicios/js/lib/angular-block-ui/dist/angular-block-ui.js"></script>
+
+    <script src="/servicios/js/lib/angular-route.min.js"></script>
+    <script src="/servicios/js/lib/angular-resource.min.js"></script>
+    <script src="/servicios/js/lib/angular-toastr.js"></script>
+    <script src="/servicios/js/lib/angular-toastr.tpls.js"></script>
+
+    <script src="/servicios/js/lib/FileSaver.js"></script>
+
+    <script src="/servicios/js/controller/administracion.js"></script>
+    <script src="/servicios/js/services/administracion-service.js"></script>
+</body>
+
+</html>

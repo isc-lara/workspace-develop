@@ -1,0 +1,193 @@
+h1 {
+	font-size: 20px;
+	margin-top: 1px;
+	text-decoration-color: #003c77;
+}
+
+h2 {
+	font-size: 15px;
+	margin-top: 1px;
+	text-decoration-color: #003c77;
+}
+
+h3 {
+	font-size: 12px;
+	margin-top: 1px;
+	text-decoration-color: #003c77;
+}
+
+
+h4 {
+	font-size: 10px;
+	margin-top: 1px;
+	text-decoration-color: #003c77;
+}
+
+*{
+	font-family: Tahoma, Geneva, sans-serif;
+    text-decoration-color: #003c77;
+	
+}
+.card{
+	margin-bottom: 10px;	
+}
+
+
+
+.btn-rojo,
+.btn-rojo:focus,
+.btn-rojo:active,
+.btn-rojo:hover {
+	background-color: #E95F47;
+	border-color: #E95F47;
+	border-radius: 3px;
+	color: #fff;
+}
+
+
+.btn-azul,
+.btn-azul:focus,
+.btn-azul:active,
+.btn-azul:hover {
+	background-color: #3bb0c9;
+	border-color: #3bb0c9;
+	border-radius: 3px;
+	color: #fff;
+}
+
+.btn-azul-oscuro,
+.btn-azul-oscuro:focus,
+.btn-azul-oscuro:active,
+.btn-azul-oscuro:hover {
+	background-color: #0062a9;
+	border-color: #0062a9;
+	border-radius: 3px;
+	color: #fff;
+}
+
+.btn-verde,
+.btn-verde:focus,
+.btn-verde:active,
+.btn-verde:hover {
+	background-color: #97BF0D;
+	border-color: #97BF0D;
+	border-radius: 3px;
+	color: #fff;
+}
+
+
+
+
+.tamanoConenedor {
+	height: 400px;
+	overflow-y: auto;
+}
+
+.scrollbar {
+	float: left;
+	margin-bottom: 25px;
+}
+
+.force-overflow {
+	min-height: 450px;
+}
+
+.style-4::-webkit-scrollbar {
+	width: 5px;
+}
+
+.style-4::-webkit-scrollbar-thumb {
+	background-color: #9C9E9F;
+	border: 1px solid #9C9E9F;
+	border-radius: 3px
+}
+
+.btns {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+
+.margenResultado {
+	border: 1px solid #f3f3f3;
+	border-radius: 2px;
+}
+
+.btn-outline,
+.btn-outline:disabled {
+	color: inherit;
+	background-color: transparent;
+	transition: all .5s;
+}
+
+.login {
+	margin-top: 25%;
+	-webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+}
+
+.cardUser {
+	-webkit-box-shadow: 0 0px 15px 0 rgba(0, 0, 0, 0.3);
+	padding: 5px 5px 5px 5px;
+	margin-bottom: 5px;
+}
+
+.carHeaderColor {
+	background: #dddddd
+}
+
+.fondo-azul {
+	background-color: #00AEC7;
+	border-color: #00AEC7;		
+	color: white;
+}
+
+.fondo-verde {
+	border-color: #97BF0D;
+	background-color: #97BF0D;
+	color: white;
+	padding-top: 20px;		
+}
+
+.fondo-gris {
+	border-color: #333e48;
+	background-color: #333e48;
+	box-shadow: 2px 10px 15px #cccccc;
+	margin-bottom: 10px;
+	color: white;
+}
+.logoAdministrativo{
+	/*padding-left: 20px;*/
+	height: 60px;
+		
+}
+.uib-datepicker-current,
+.uib-clear,
+.uib-close {
+	background-color: #fff;
+	color: #343e48;
+	border-color: #343e48;
+}
+
+.uib-datepicker-current:hover,
+.uib-datepicker-current:active,
+.uib-datepicker-current:focus,
+.uib-clear:hover,
+.uib-clear:active,
+.uib-clear:focus,
+.uib-close:hover,
+.uib-close:active,
+.uib-close:focus {
+	/*color: white;*/
+	background-color: #343e48;
+	border-color: #343e48;
+}
+
+#footer{
+    
+   position: absolute;
+    bottom: 0;    
+}
+ 
+.nav-pills .nav-link.active, .nav-pills .show>.nav-link {
+    /*color: #003c77 !important;
+    background-color: #5b5b5f !important;*/
+}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es-Mx">
+
+<head>
+
+    <title>UNSA EDOMEX</title>
+    <meta charset="UTF-8" />
+    <meta name="keywords" content="Universidad,Salud,México,Administración">
+    <meta name="author" content="Guillermo LG, Ramiro">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+
+    <link rel="stylesheet" href="/servicios/styles/font-awesome-4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="/servicios/styles/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="/servicios/js/lib/angular-block-ui/dist/angular-block-ui.css">
+    <link rel="stylesheet" href="/servicios/styles/angular-toastr.min.css">
+    <link rel="stylesheet" href="/servicios/styles/styles-login.css">
+
+</head>
+
+<body ng-app="autenticacion-login" ng-controller="autentica-user" ng-init="variablesDeInicioLogin()" ng-cloak>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xl-4 offset-xl-4 col-lg-4 offset-lg-4 col-md-4 offset-md-4 col-sm-12 col-xs-12">
+                <form>
+                    <div class="jumbotron text-center login">
+                        <div class="text-center"><img src="img/logo.png" class="img-fluid"></div>
+                        <br>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user"></i></span>
+                            </div>
+                            <input type="text" ng-model="username" placeholder="Usuario" class="form-control form-control-sm" autocomplete="on">
+                        </div>
+
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                            </div>
+                            <input type="password" ng-model="password" placeholder="Contraseña" class="form-control form-control-sm" autocomplete="on">
+                        </div>
+                        <button ng-click="login()" class="btn btn-sm form-control form-control-sm btn-outline btn-azul">
+                            <i class="fa fa-sign-in fa-1x"></i> Ingresar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="row">
+            <footer id="footer" class="col-lg-12 col-md-12 col-sm-12 text-muted text-center">
+                <h4 class="small">
+                    Copyright © 2020 Universidad de la Salud del Estado de México. Todos los Derechos Reservados.
+                </h4>
+            </footer>
+        </div>
+    </div>
+    <script src="/servicios/js/lib/jquery-3.2.1.min.js"></script>
+    <script src="/servicios/js/lib/bootstrap.min.js"></script>
+    <script src="/servicios/js/lib/angular.js"></script>
+    <script src="/servicios/js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+    <script src="/servicios/js/lib/angular-animate.js"></script>
+    <script src="/servicios/js/lib/angular-sanitize.js"></script>
+    <script src="/servicios/js/lib/angular-block-ui/dist/angular-block-ui.js"></script>
+
+    <script src="/servicios/js/lib/angular-route.min.js"></script>
+    <script src="/servicios/js/lib/angular-resource.min.js"></script>
+    <script src="/servicios/js/lib/angular-toastr.js"></script>
+    <script src="/servicios/js/lib/angular-toastr.tpls.js"></script>
+    <script src="/servicios/js/controller/login.js"></script>
+    <script src="/servicios/js/services/login-service.js"></script>
+
+
+
+    <noscript>Your browser does not support JavaScript! Download Google Chrome in your computer (recommended)</noscript>
+</body>
+
+</html>

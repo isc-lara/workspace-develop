@@ -1,0 +1,37 @@
+*{
+	font-family: Tahoma, Geneva, sans-serif;	
+}
+
+.btn-azul,
+.btn-azul:focus,
+.btn-azul:active,
+.btn-azul:hover {
+	background-color: #3bb0c9;
+	border-color: #3bb0c9;
+	border-radius: 3px;
+	color: #fff;
+}
+
+
+.btn-outline,
+.btn-outline:disabled {
+	color: inherit;
+	background-color: transparent;
+	transition: all .5s;
+}
+
+.login {
+	margin-top: 5%;
+	-webkit-box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.3);
+}
+
+
+body {
+	border-color: #333e48;
+	background-color: #333e48;	
+}
+#footer{
+    
+   position: absolute;
+    bottom: 0;    
+}
